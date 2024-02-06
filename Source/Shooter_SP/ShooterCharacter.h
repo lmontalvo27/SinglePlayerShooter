@@ -29,7 +29,13 @@ private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
 
+	//camera that follows the character
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class UCameraComponent* FollowCamera;
+
 public:
 	// Returns CameraBoom subobject
 	FORCEINLINE USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
+
+	FORCEINLINE UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 };
