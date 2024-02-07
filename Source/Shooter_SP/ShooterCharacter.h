@@ -18,6 +18,11 @@ public:
 protected:
 	virtual void BeginPlay() override;
 
+	// Called for forwards/backwards input
+	void MoveForward(float Value);
+
+	//called for side to side input 
+	void MoveRight(float Value);
 public:	
 	
 	virtual void Tick(float DeltaTime) override;
