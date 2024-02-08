@@ -5,7 +5,9 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 
-AShooterCharacter::AShooterCharacter()
+AShooterCharacter::AShooterCharacter() : 
+	BaseTurnRate(45.f),
+	BaseLookUpRate(45.f)
 {
  	
 	PrimaryActorTick.bCanEverTick = true;
@@ -54,6 +56,17 @@ void AShooterCharacter::MoveRight(float Value)
 	}
 }
 
+void AShooterCharacter::TurnAtRate(float Rate)
+{
+	// calculate delta for this frame from the rate information
+	AddControllerYawInput(Rate * BaseTurnRate * GetWorld()->GetDeltaSeconds()); // deg/sec * sec/frame
+}
+
+void AShooterCharacter::LookUpAtRate(float Rate)
+{
+	AddControllerPitchInput(Rate * BaseLookUpRate * GetWorld()->GetDeltaSeconds()); //deg/sec * sec/frame
+}
+
 void AShooterCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -68,5 +81,7 @@ void AShooterCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	PlayerInputComponent->BindAxis("MoveForward", this, &AShooterCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AShooterCharacter::MoveRight);
+	PlayerInputComponent->BindAxis("TurnRate", this, &AShooterCharacter::TurnAtRate);
+	PlayerInputComponent->BindAxis("LookUpRate", this, &AShooterCharacter::LookUpAtRate);
 }
 
